@@ -96,7 +96,8 @@ def make_predictions():
     sequence_length = st.sidebar.slider('Select the sequence length', 10, 50, 20, 5)
     dropout = st.sidebar.slider('Select the dropout', 0.1, 0.5, 0.2, 0.1)
     # true false
-    use_bias = st.sidebar.checkbox('Use bias')
+    use_bias = st.sidebar.checkbox('Use bias',value=True)
+ 
 
     
     if st.button('Train the Model! 🚀'):
