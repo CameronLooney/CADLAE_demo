@@ -50,21 +50,86 @@ def intro():
 	"""
     )
 
-def mapping_demo():
+def make_predictions():
     import streamlit as st
     import pandas as pd
-    import pydeck as pdk
-
-    from urllib.error import URLError
-
-    st.markdown(f"# {list(page_names_to_funcs.keys())[2]}")
-    st.write(
-        """
-        This demo shows how to use
-[`st.pydeck_chart`](https://docs.streamlit.io/library/api-reference/charts/st.pydeck_chart)
-to display geospatial data.
-"""
+    import torch
+    from cadlae.detector import AnomalyDetector
+    from cadlae.preprocess import DataProcessor
+    from sklearn.metrics import roc_curve, roc_auc_score
+    import time
+    st.markdown(
+        '''
+        # Anomaly Detection 🤖
+        Here we will train a model to detect anomalies in the Tennessee Eastman process, and then use the model to detect anomalies in the test set.
+        '''
+        
     )
+    # button to make predictions
+    st.markdown(
+        """
+		## Model Parameters Explained
+
+		- `Batch Size` The number of samples to use in each batch
+		- `Number of Epochs` The number of times to iterate over the entire dataset
+		- `Learning Rate` The learning rate for the model
+		- `Hidden Size` The number of nodes in the hidden layer
+		- `Number of Layers` The number of layers in the model
+		- `Dropout` The probability of randomly dropping out nodes during training to prevent overfitting
+		- `Sequence Length` The number of time steps to use in each sequence
+		- `Use Bias` Whether to include bias in the LSTM computations
+	"""
+    )
+    
+
+    st.sidebar.header('Set Model Parameters 🧪')
+    batch_size = st.sidebar.slider('Select the batch size', 32, 512, 256, 32)
+    epochs = st.sidebar.slider('Select the number of epochs', 5, 25, 10, 1)
+    learning_rate = st.sidebar.slider('Select the learning rate', 0.0001, 0.01, 0.001, 0.0001)
+    hidden_size = st.sidebar.slider('Select the hidden size', 10, 35, 25, 5)
+    num_layers = st.sidebar.slider('Select the number of layers', 1, 3, 1, 1)
+    sequence_length = st.sidebar.slider('Select the sequence length', 10, 50, 2, 5)
+    dropout = st.sidebar.slider('Select the dropout', 0.1, 0.5, 0.2, 0.1)
+    # true false
+    use_bias = st.sidebar.checkbox('Use bias')
+    
+   
+    
+    if st.button('Train the Model! 🚀'):
+        model = AnomalyDetector(batch_size=batch_size, num_epochs  = epochs, lr = learning_rate,
+                                hidden_size = hidden_size, n_layers = num_layers, dropout = dropout,
+                                sequence_length = sequence_length, use_bias = use_bias,
+                                train_gaussian_percentage=0.25)
+        train_link = "data/train_data.csv"
+        test_link =  "data/test_data.csv"
+        processor = DataProcessor(train_link, test_link, "Fault", "Unnamed: 0")
+        X_train = processor.X_train
+        y_train = processor.y_train
+        X_test = processor.X_test
+        y_test = processor.y_test
+        scaler = processor.scaler_function
+        with st.spinner('Model is Training, Please Wait...'):
+            model.fit(X_train)
+            y_pred, details = model.predict(X_test,y_test)
+        st.header('Model Training Complete! 🎉')
+        st.markdown('''
+        The model has been trained in an unsupervised manner, and has learned the normal behaviour of the process.
+        We have fit the model on unseen data using the parameters you have selected above. The results are shown below.
+        ''')
+        st.header('Model Performance 📈')
+        
+        st.markdown('''ROC Curve: {}'''.format(roc_auc_score(y_test, y_pred)))
+        
+        
+        
+            
+        
+        
+    
+    
+        
+        
+    
 
 
 def plotting_demo():
@@ -163,7 +228,7 @@ def data_frame_demo():
 page_names_to_funcs = {
     "Home": intro,
     "Plotting Demo": plotting_demo,
-    "Mapping Demo": mapping_demo,
+    "Make Predictions": make_predictions,
     "DataFrame Demo": data_frame_demo
 }
 

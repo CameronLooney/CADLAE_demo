@@ -1,3 +1,7 @@
 pandas
 streamlit
 Pillow
+tqdm
+torch
+scikit-learn
+numpy
