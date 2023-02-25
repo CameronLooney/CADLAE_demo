@@ -4,11 +4,10 @@ from PIL import Image
 def intro():
 
     st.write("# Welcome to CADLAE 👋")
-    st.sidebar.success("Select a demo above.")
 
     st.markdown(
         """
-        CADLAE is a proposed framework for the anomaly detection, localization, and explanation of anomalies in Cyber Physical Systems:
+        Configurable Anomaly Detection, Localization, and Explanation Framework for Cyber Physical Systems
 
         **👈 Select a demo from the dropdown on the left to explore the framework**
 
@@ -41,7 +40,7 @@ def intro():
     )
     st.markdown(
         """
-		### Useful Links
+		### Relevant Links
 
 		- Find the accompanying [Thesis](https://github.com/CameronLooney)
 		- View the demo [Source Code](https://github.com/CameronLooney)
@@ -89,7 +88,7 @@ def make_predictions():
     batch_size = st.sidebar.slider('Select the batch size', 32, 512, 256, 32)
     epochs = st.sidebar.slider('Select the number of epochs', 5, 25, 10, 1)
     # select box for learning rate
-    learning_rate = st.sidebar.selectbox('Select the learning rate', [0.00001, 0.0001,0.001 , 0.01])
+    learning_rate = st.sidebar.selectbox('Select the learning rate', [0.001, 0.00001, 0.0001 ,0.01])
     hidden_size = st.sidebar.slider('Select the hidden size', 10, 35, 25, 5)
     num_layers = st.sidebar.slider('Select the number of layers', 1, 3, 1, 1)
     sequence_length = st.sidebar.slider('Select the sequence length', 10, 50, 20, 5)
@@ -277,10 +276,10 @@ def data_frame_demo():
         )
 
 page_names_to_funcs = {
-    "Home": intro,
-    "Plotting Demo": plotting_demo,
-    "Make Predictions": make_predictions,
-    "DataFrame Demo": data_frame_demo
+    "Introduction": intro,
+    "Train Model": make_predictions,
+    "A": plotting_demo,
+    "B": data_frame_demo
 }
 
 demo_name = st.sidebar.selectbox("Choose a demo", page_names_to_funcs.keys())
