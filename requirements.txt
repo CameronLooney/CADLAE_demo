@@ -5,3 +5,5 @@ tqdm
 torch
 scikit-learn
 numpy
+seaborn
+matplotlib

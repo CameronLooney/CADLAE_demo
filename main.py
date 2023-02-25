@@ -56,7 +56,10 @@ def make_predictions():
     import torch
     from cadlae.detector import AnomalyDetector
     from cadlae.preprocess import DataProcessor
-    from sklearn.metrics import roc_curve, roc_auc_score
+    from sklearn.metrics import roc_curve, roc_auc_score, confusion_matrix, accuracy_score
+    import numpy as np
+    import matplotlib.pyplot as plt
+    import seaborn as sns
     import time
     st.markdown(
         '''
@@ -85,15 +88,15 @@ def make_predictions():
     st.sidebar.header('Set Model Parameters 🧪')
     batch_size = st.sidebar.slider('Select the batch size', 32, 512, 256, 32)
     epochs = st.sidebar.slider('Select the number of epochs', 5, 25, 10, 1)
-    learning_rate = st.sidebar.slider('Select the learning rate', 0.0001, 0.01, 0.001, 0.0001)
+    # select box for learning rate
+    learning_rate = st.sidebar.selectbox('Select the learning rate', [0.00001, 0.0001,0.001 , 0.01])
     hidden_size = st.sidebar.slider('Select the hidden size', 10, 35, 25, 5)
     num_layers = st.sidebar.slider('Select the number of layers', 1, 3, 1, 1)
-    sequence_length = st.sidebar.slider('Select the sequence length', 10, 50, 2, 5)
+    sequence_length = st.sidebar.slider('Select the sequence length', 10, 50, 20, 5)
     dropout = st.sidebar.slider('Select the dropout', 0.1, 0.5, 0.2, 0.1)
     # true false
     use_bias = st.sidebar.checkbox('Use bias')
-    
-   
+
     
     if st.button('Train the Model! 🚀'):
         model = AnomalyDetector(batch_size=batch_size, num_epochs  = epochs, lr = learning_rate,
@@ -117,8 +120,56 @@ def make_predictions():
         We have fit the model on unseen data using the parameters you have selected above. The results are shown below.
         ''')
         st.header('Model Performance 📈')
+        st.subheader('Model Metrics 📊')
+        cm = confusion_matrix(y_test, y_pred)
+        TP = cm[0, 0]
+        TN = cm[1, 1]
+        FP = cm[0, 1]
+        FN = cm[1, 0]
+        accuracy = accuracy_score(y_test, y_pred)
+        precision = TP / float(TP + FP)
+        recall = TP / float(TP + FN)
+        f1 = 2 * (precision * recall) / (precision + recall)
+        roc = roc_auc_score(y_test, y_pred)
         
-        st.markdown('''ROC Curve: {}'''.format(roc_auc_score(y_test, y_pred)))
+        # multiple *100, round to 2 decimal places, and add % sign
+        accuracy = round(accuracy*100, 2)
+        precision = round(precision*100, 2)
+        recall = round(recall*100, 2)
+        f1 = round(f1*100, 2)
+        roc = round(roc*100, 2)
+        
+        accuracy = str(accuracy) + '%'
+        precision = str(precision) + '%'
+        recall = str(recall) + '%'
+        f1 = str(f1) + '%'
+        roc = str(roc) + '%'
+        
+        # add metrics to dataframe, with columns Metric and Value
+        metrics = pd.DataFrame({'Metric': ['Accuracy', 'Precision', 'Recall', 'F1 Score', 'ROC AUC Score'],
+                                'Result': [accuracy, precision, recall, f1, roc]})
+        st.table(metrics)
+        
+        
+        st.subheader('Confusion Matrix')
+      
+
+        # plot confusion matrix
+        def make_confusion_matrix(y_true, y_prediction, c_map="viridis"):
+            sns.set(font_scale=1.2)
+            fig, ax = plt.subplots()
+            ax.set_title('CADLAE Confusion Matrix')
+            cm = confusion_matrix(y_true, y_prediction)
+           
+            cm_matrix = pd.DataFrame(data=cm, columns=['Normal', 'Attack'],
+                                     index=['Normal', 'Attack'])
+    
+            sns.heatmap(cm_matrix, annot=True, fmt='.0f', cmap=c_map, linewidths=1, linecolor='black', clip_on=False)
+            st.pyplot(fig)
+        make_confusion_matrix(y_test,y_pred, c_map = "Blues")
+
+      
+
         
         
         
