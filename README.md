@@ -27,3 +27,4 @@ CADLAE Interactive Demonstration: Configurable Anomaly Detection, Localisation a
 - Add discussion for explainer section 
 
 
+- Make a standardised non data specific version to use. (can be its own tab aswell as standalone app
