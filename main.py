@@ -200,8 +200,13 @@ def explainer():
 def feedback_form():
     from page.feedback_form import feedback
     feedback()
+    
+def full_demo():
+    from page.full_pipeline import pipeline
+    pipeline()
 page_names_to_funcs = {
     "Introduction": intro,
+    "Full Demo": full_demo,
     "Train Model": train_and_predict_page,
     "Correlation Subgraph": correlation_subgraph,
     "PCA Localisation": localise_pca,

@@ -4,6 +4,7 @@ def generate_pca_localisation():
 	from cadlae.detector import AnomalyDetector
 	import streamlit as st
 	import torch
+	
 	train_link = "data/train_data.csv"
 	test_link = "data/test_data_idv4.csv"
 	processor = DataProcessor(train_link, test_link, "Fault", "Unnamed: 0")

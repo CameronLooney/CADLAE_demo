@@ -57,7 +57,7 @@ def generate_threshold_localisation():
 		st.subheader("Top {} most likely causes of anomaly".format(num_variables))
 		k = 3  # replace with the number of top features you want to print
 		
-		lst_sorted = sorted(rank, key=lambda x: x[1][0], reverse=True)[:k]  # sort by number of threshold violations
+		lst_sorted = sorted(rank, key=lambda x: x[1][0], reverse=True)[:num_variables]  # sort by number of threshold violations
 		for i, (feat, (violations, percentage)) in enumerate(lst_sorted):
 			st.write(f"{i + 1}. {feat} with {violations} threshold violations ({percentage:.2f}%)")
 	

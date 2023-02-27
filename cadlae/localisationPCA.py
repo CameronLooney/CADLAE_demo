@@ -5,6 +5,8 @@ import matplotlib.pyplot as plt
 import matplotlib.colors as colors
 import matplotlib.cm as cmx
 import streamlit as st
+import seaborn as sns
+sns.set_style("whitegrid")
 
 
 class PCALocalization:
