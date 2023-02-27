@@ -3,6 +3,7 @@ def generate_pca_localisation():
 	from cadlae.preprocess import DataProcessor
 	from cadlae.detector import AnomalyDetector
 	import streamlit as st
+	import torch
 	train_link = "data/train_data.csv"
 	test_link = "data/test_data.csv"
 	processor = DataProcessor(train_link, test_link, "Fault", "Unnamed: 0")
@@ -39,7 +40,7 @@ def generate_pca_localisation():
 		
 		
 		with st.spinner('Model is Training, Please Wait...'):
-			model.fit(X_train)
+			model = torch.load("./model/k.pth")
 			
 		with st.spinner('Making Predictions, Please Wait...'):
 			y_pred, details = model.predict(X_test, y_test)

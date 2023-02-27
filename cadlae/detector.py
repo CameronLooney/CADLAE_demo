@@ -12,18 +12,7 @@ from scipy.stats import multivariate_normal
 from sklearn.metrics import roc_curve,roc_auc_score
 
 
-def set_seed(seed=None):
-	'''
-	Set seed for all libraries
-	:param seed: seed
-	'''
-	if seed is not None:
-		random.seed(seed)
-		np.random.seed(seed)
-		torch.manual_seed(seed)
-		torch.cuda.manual_seed(seed)
-	else:
-		pass
+
 
 
 class AnomalyDetector():

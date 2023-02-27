@@ -3,6 +3,7 @@ def generate_threshold_localisation():
 	from cadlae.preprocess import DataProcessor
 	from cadlae.detector import AnomalyDetector
 	import streamlit as st
+	import torch
 	
 	train_link = "data/train_data.csv"
 	test_link = "data/test_data.csv"
@@ -39,7 +40,7 @@ def generate_threshold_localisation():
 	
 	if st.button("Feature Wise Localisation"):
 		with st.spinner('Model is Training, Please Wait...'):
-			model.fit(X_train)
+			model = torch.load("./model/k.pth")
 			
 
 		

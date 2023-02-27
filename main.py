@@ -1,6 +1,22 @@
 import streamlit as st
 import pandas as pd
 from PIL import Image
+import torch
+from tqdm import trange
+import tqdm
+from torch.autograd import Variable
+from torch.utils.data import DataLoader
+from torch.utils.data.sampler import SubsetRandomSampler
+import logging
+import pandas as pd
+import torch.nn as nn
+import numpy as np
+from scipy.stats import multivariate_normal
+from sklearn.metrics import roc_curve, roc_auc_score
+
+
+from cadlae.detector import AnomalyDetector, DetectorHelper
+model = AnomalyDetector()
 def intro():
     
 
@@ -52,6 +68,7 @@ def intro():
     )
 
 def train_and_predict_page():
+    from cadlae.detector import AnomalyDetector
     from page.train_page import prediction
     prediction()
     
