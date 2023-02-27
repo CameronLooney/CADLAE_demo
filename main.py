@@ -179,6 +179,10 @@ def localise_threshold():
 def explainer():
     from page.explainer_page import generation_explanation
     generation_explanation()
+    
+def feedback_form():
+    from page.feedback_form import feedback
+    feedback()
 page_names_to_funcs = {
     "Introduction": intro,
     "Train Model": train_and_predict_page,
@@ -186,6 +190,7 @@ page_names_to_funcs = {
     "PCA Localisation": localise_pca,
     "Threshold Localisation": localise_threshold,
     "Explanation" : explainer,
+    "Feedback Form" : feedback_form,
     
    
 }
