@@ -4,6 +4,7 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 import networkx as nx
 from networkx.algorithms.components import connected_components
+import streamlit as st
 
 class CorrelationSubgraph:
     def __init__(self, df, threshold):
@@ -113,3 +114,17 @@ class CorrelationSubgraph:
         plt.axis("off")
         # show plot
         plt.show()
+
+    def plot_corr_graph_st(self):
+        fig, ax = plt.subplots()
+        fig, ax = plt.subplots(figsize=(15, 15))
+        g = self.generate_edges()
+        pos = nx.spring_layout(g, k=0.25, iterations=25)
+        # draw graph
+        nx.draw(g, pos, with_labels=True, node_size=750, font_size=11, font_weight="bold", node_color="lightskyblue")
+        # adjust layout
+       
+        # remove axis
+        plt.axis("off")
+        # show plot
+        st.pyplot(fig, )
