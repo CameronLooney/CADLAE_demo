@@ -1,7 +1,6 @@
 import numpy as np
-from sklearn.metrics import confusion_matrix
+import pandas as pd
 from sklearn.metrics import roc_curve
-
 class FeatureWiseLocalisation:
     def __init__(self, y_test, y_pred, col_names, training_error, test_error):
         self.y_test = y_test
@@ -118,6 +117,3 @@ class FeatureWiseLocalisation:
         sorted_dict = sorted(dictionary.items(), key=lambda x: x[1][0], reverse=True)
         y_predictions = self.convert_scores_to_label()
         return sorted_dict, y_predictions
-
-#ftwise= FeatureWiseLocalisation(y_test, test_preds, processor.col_names, details_train, details_test)
-#rank,y_predictions = ftwise.run()

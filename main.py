@@ -170,11 +170,16 @@ def data_frame_demo():
 def localise_pca():
     from page.local_pca_page import generate_pca_localisation
     generate_pca_localisation()
+    
+def localise_threshold():
+    from page.local_threshold import generate_threshold_localisation
+    generate_threshold_localisation()
 page_names_to_funcs = {
     "Introduction": intro,
     "Train Model": train_and_predict_page,
     "Correlation Subgraph": correlation_subgraph,
     "PCA Localisation": localise_pca,
+    "Threshold Localisation": localise_threshold
     
    
 }
