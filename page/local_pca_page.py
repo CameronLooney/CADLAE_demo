@@ -5,17 +5,15 @@ def generate_pca_localisation():
 	import streamlit as st
 	import torch
 	
-	train_link = "data/train_data.csv"
-	test_link = "data/test_data_idv4.csv"
-	processor = DataProcessor(train_link, test_link, "Fault", "Unnamed: 0")
-	X_train = processor.X_train
-	y_train = processor.y_train
-	X_test = processor.X_test
-	y_test = processor.y_test
-	col_names = processor.col_names
-	model = AnomalyDetector(batch_size=256, num_epochs=10, hidden_size=25)
+	from helper.st_utils import data_preprocess
+	# Data Preprocessing
+	train = "data/train_data.csv"
+	test = "data/test_data_idv4.csv"
+	X_train, y_train, X_test, y_test, col_names, scaler = data_preprocess(train, test)
 	num_variables = st.sidebar.slider("Top K most likely variables", 1, len(col_names), 5)
-	from page.long_form_text import pca_text
+	
+	
+	from helper.long_form_text import pca_text
 	pca_text()
 	
 	if st.button("PCA Localisation"):
@@ -31,7 +29,6 @@ def generate_pca_localisation():
 		with st.spinner("Using Predictions to Localise Anomalies..."):
 			pca_localization = PCALocalization(3)
 			pca_localization.fit(details["errors_mean"])
-			#data_pca = pca_localization.transform(details["errors_mean"])
 			result = pca_localization.localise(num_variables, col_names)
 		
 		st.subheader("Top {} most likely causes of anomaly".format(num_variables))

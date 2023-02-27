@@ -1,24 +1,19 @@
 def generate_threshold_localisation():
 	from cadlae.localisationFeatureWise import FeatureWiseLocalisation
-	from cadlae.preprocess import DataProcessor
-	from cadlae.detector import AnomalyDetector
 	import streamlit as st
 	import torch
 	
-	train_link = "data/train_data.csv"
-	test_link = "data/test_data_idv4.csv"
-	processor = DataProcessor(train_link, test_link, "Fault", "Unnamed: 0")
-	X_train = processor.X_train
-	y_train = processor.y_train
-	X_test = processor.X_test
-	y_test = processor.y_test
-	col_names = processor.col_names
-	model = AnomalyDetector(batch_size=256, num_epochs=10, hidden_size=25)
-	num_variables = st.sidebar.slider("Top K most likely variables", 1, len(col_names), 3)
-	
-	from page.long_form_text import threshold_text
-	
+	from helper.long_form_text import threshold_text
 	threshold_text()
+	
+	from helper.st_utils import data_preprocess
+	# Data Preprocessing
+	train = "data/train_data.csv"
+	test = "data/test_data_idv4.csv"
+	X_train, y_train, X_test, y_test, col_names, scaler = data_preprocess(train, test)
+
+	num_variables = st.sidebar.slider("Top K most likely variables", 1, len(col_names), 3)
+
 	
 	
 
@@ -41,7 +36,7 @@ def generate_threshold_localisation():
 		
 			
 		st.subheader("Top {} most likely causes of anomaly".format(num_variables))
-		k = 3  # replace with the number of top features you want to print
+	
 		
 		lst_sorted = sorted(rank, key=lambda x: x[1][0], reverse=True)[:num_variables]  # sort by number of threshold violations
 		for i, (feat, (violations, percentage)) in enumerate(lst_sorted):

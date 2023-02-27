@@ -1,8 +1,7 @@
 def pipeline():
 	import streamlit as st
 	from cadlae.detector import AnomalyDetector
-	from cadlae.st_utils import data_preprocess
-	from cadlae.preprocess import DataProcessor
+	from helper.st_utils import data_preprocess
 	from cadlae.correlationSubgraph import CorrelationSubgraph
 	from cadlae.localisationPCA import PCALocalization
 	from cadlae.localisationFeatureWise import FeatureWiseLocalisation
@@ -22,10 +21,10 @@ def pipeline():
 	dataset_dict = {'IDV(4)': './data/test_data_idv4.csv'}
 	dataset = st.sidebar.selectbox('Select the dataset', ['IDV(4)'])
 
-	from cadlae.st_utils import training_parameters
-	pretrained, batch_size, epochs, learning_rate, hidden_size, num_layers, sequence_length, dropout = training_parameters()
+	from helper.user_parameters import training_parameters
+	pretrained, batch_size, epochs, learning_rate, hidden_size, num_layers, sequence_length, dropout, use_bias = training_parameters()
 	# true false
-	use_bias = st.sidebar.checkbox('Use bias', value=True)
+
 	
 	st.sidebar.header('Model Localisation')
 	st.sidebar.subheader('Correlation Graph')

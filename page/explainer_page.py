@@ -1,22 +1,15 @@
 def generation_explanation():
-	import streamlit as st
 	from cadlae.preprocess import DataProcessor
 	from cadlae.explainer import ActionExplainer
-	import matplotlib.pyplot as plt
-	import streamlit.components.v1 as components
 	import streamlit.components.v1 as components
 	import streamlit as st
-	import dtreeviz  # remember to load the package
 	
-	train_link = "data/train_data.csv"
-	test_link = "data/test_data_idv4.csv"
-	processor = DataProcessor(train_link, test_link, "Fault", "Unnamed: 0")
-	X_train = processor.X_train
-	y_train = processor.y_train
-	X_test = processor.X_test
-	y_test = processor.y_test
-	col_names = processor.col_names
-	from page.long_form_text import explainer_text
+	from helper.st_utils import data_preprocess
+	# Data Preprocessing
+	train = "data/train_data.csv"
+	test = "data/test_data_idv4.csv"
+	X_train, y_train, X_test, y_test, col_names, scaler = data_preprocess(train, test)
+	from helper.long_form_text import explainer_text
 	
 	explainer_text()
 	
@@ -39,6 +32,7 @@ def generation_explanation():
 			
 			components.html(dtree_html, height=height, width=750)
 		st.subheader('Global Explanation')
+		
 		st_dtree(mod.model, 550)
 		
 		def st_dtree_local(plot, height=None,width = None):

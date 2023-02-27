@@ -7,7 +7,8 @@ from sklearn.metrics import accuracy_score, f1_score, roc_auc_score
 from dtreeviz import decision_boundaries
 from sklearn.metrics import accuracy_score, f1_score, roc_auc_score
 
-
+import seaborn as sns
+sns.set_style("whitegrid")
 class ActionExplainer:
 	def __init__(self, variable_description: bool = True):
 		"""

@@ -1,18 +1,4 @@
-from cadlae.detector import AnomalyDetector
-from cadlae.preprocess import DataProcessor
 import streamlit as st
-def data_preprocess(train,test):
-	processor = DataProcessor(train, test, "Fault", "Unnamed: 0")
-	X_train = processor.X_train
-	y_train = processor.y_train
-	X_test = processor.X_test
-	y_test = processor.y_test
-	scaler = processor.scaler_function
-	col_names = processor.col_names
-	return X_train, y_train, X_test, y_test,col_names, scaler
-
-# X_train, y_train, X_test, y_test,col_names, scaler = data_preprocess(train,test)
-
 def training_parameters():
 	st.sidebar.header('Model Training 🧪')
 	st.sidebar.subheader('Use Pretrained Model')
@@ -25,6 +11,7 @@ def training_parameters():
 	num_layers = st.sidebar.slider('Select the number of layers', 1, 3, 1, 1)
 	sequence_length = st.sidebar.slider('Select the sequence length', 10, 50, 20, 5)
 	dropout = st.sidebar.slider('Select the dropout', 0.1, 0.5, 0.2, 0.1)
-	return pretrained, batch_size, epochs, learning_rate, hidden_size, num_layers, sequence_length, dropout
+	use_bias = st.sidebar.checkbox('Use Bias', value=True)
+	return pretrained, batch_size, epochs, learning_rate, hidden_size, num_layers, sequence_length, dropout, use_bias
 
-# pretrained, batch_size, epochs, learning_rate, hidden_size, num_layers, sequence_length, dropout = training_parameters()
+# pretrained, batch_size, epochs, learning_rate, hidden_size, num_layers, sequence_length, dropout, use_bias = training_parameters()
