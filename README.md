@@ -8,8 +8,7 @@ CADLAE Interactive Demonstration: Configurable Anomaly Detection, Localisation a
 - ~~Add PCA localisation~~
 - ~~Fix pretrained model loading issue~~
 - ~~Add Thresholding localisation~~
-- ~~Add full demo~~
-- ~~Add full demo~~
+- ~~Add correlation subgraph~~
 - ~~Add full demo~~
 - clean up full demo 
 - look into adding data simulation
