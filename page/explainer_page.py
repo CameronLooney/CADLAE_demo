@@ -16,36 +16,9 @@ def generation_explanation():
 	X_test = processor.X_test
 	y_test = processor.y_test
 	col_names = processor.col_names
-	st.markdown(
-		'''
-		# Anomaly Explanation 🚨
-		
-		### What is Anomaly Explanation?
-		The proposed approach uses an unsupervised model to generate predictions, which are then used to train a
-		supervised explanation model. The explanation model leverages Gradient Boosting Machines (GBMs) to
-		generate interpretable and actionable rules in the form of if-then statements.
-		GBMs are a popular machine learning model that iteratively adds decision trees to the model to
-		improve prediction accuracy.
-
-		### How does it work?
-		The GBM model can be fitted to the training data by minimizing the loss function using gradient descent.
-		GBMs can be interpreted by examining the importance of each feature in the model, which is calculated by
-		measuring how much the model's accuracy decreases when a feature is randomly shuffled. GBMs also
-		provide information about the contribution of each feature to each decision tree in the model.
-
-		The generated if-then rules are expressed in terms of the input features and the predicted labels and
-		can be transformed into actionable insights. The rules can be visualized easily due to the tree-based
-		structure of the GBM, which allows the decision trees in the model to be displayed graphically.
-		
-		### What are the benefits?
-		The importance of human-readable and actionable insights is that they enable workers in the CPS to quickly identify and correct anomalies, reducing the impact of the anomaly on the system.
-
-
-		👈 **Pick the data point to describe and click the button to generate the explanation**
-
-
-		'''
-	)
+	from page.long_form_text import explainer_text
+	
+	explainer_text()
 	
 	# streamlit text input type int between 0 and 10
 	

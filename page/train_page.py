@@ -14,28 +14,9 @@ def prediction():
 	import dill
 	import numpy as np
 	import time
-	st.markdown(
-		'''
-		# Anomaly Detection 🤖
-		Here we will train a model to detect anomalies in the Tennessee Eastman process, and then use the model to detect anomalies in the test set.
-		'''
+	from page.long_form_text import training_text
 	
-	)
-	# button to make predictions
-	st.markdown(
-		"""
-		## Model Parameters Explained
-
-		- `Batch Size` The number of samples to use in each batch
-		- `Number of Epochs` The number of times to iterate over the entire dataset
-		- `Learning Rate` The learning rate for the model
-		- `Hidden Size` The number of nodes in the hidden layer
-		- `Number of Layers` The number of layers in the model
-		- `Dropout` The probability of randomly dropping out nodes during training to prevent overfitting
-		- `Sequence Length` The number of time steps to use in each sequence
-		- `Use Bias` Whether to include bias in the LSTM computations
-	"""
-	)
+	training_text()
 	
 	st.sidebar.header('Set Model Parameters 🧪')
 	batch_size = st.sidebar.slider('Select the batch size', 32, 512, 256, 32)

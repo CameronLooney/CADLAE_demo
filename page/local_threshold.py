@@ -15,26 +15,12 @@ def generate_threshold_localisation():
 	col_names = processor.col_names
 	model = AnomalyDetector(batch_size=256, num_epochs=10, hidden_size=25)
 	num_variables = st.sidebar.slider("Top K most likely variables", 1, len(col_names), 3)
-	st.markdown(
-		'''
-		# Threshold Localisation 📌
-
-		### What is Threshold Localisation?
-		This section discusses how to use reconstruction error for each feature in time series data from an
-		industrial control system to localize the cause of an anomaly. The process involves comparing the
-		reconstruction error for each feature in the anomalous data to the maximum reconstruction error for that
-		feature on the normal operation data.
-		
-		### How does it work?
-		By setting a threshold value for each feature and identifying the features with the most time steps above
-		the threshold, we can determine the features that are likely causing or closely related to the anomaly.
-
-
-		👈 **Set the number of components you want returned and  click the button to generate the localisation**
-
-
-		'''
-	)
+	
+	from page.long_form_text import threshold_text
+	
+	threshold_text()
+	
+	
 
 	
 	
