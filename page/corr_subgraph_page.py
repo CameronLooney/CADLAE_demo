@@ -11,10 +11,6 @@ def generate_corr_subgraph():
 	test_link = "data/test_data.csv"
 	processor = DataProcessor(train_link, test_link, "Fault", "Unnamed: 0")
 	X_train = processor.X_train
-	y_train = processor.y_train
-	X_test = processor.X_test
-	y_test = processor.y_test
-	scaler = processor.scaler_function
 	import streamlit as st
 	
 	

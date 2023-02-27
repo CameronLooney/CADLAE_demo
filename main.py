@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 from PIL import Image
 def intro():
+    
 
     st.write("# Welcome to CADLAE 👋")
 
@@ -166,12 +167,16 @@ def data_frame_demo():
             % e.reason
         )
 
+def localise_pca():
+    from page.local_pca_page import generate_pca_localisation
+    generate_pca_localisation()
 page_names_to_funcs = {
     "Introduction": intro,
     "Train Model": train_and_predict_page,
     "A": plotting_demo,
     "B": data_frame_demo,
     "Correlation Subgraph": correlation_subgraph,
+    "PCA": localise_pca,
 }
 
 demo_name = st.sidebar.selectbox("Choose a demo", page_names_to_funcs.keys())

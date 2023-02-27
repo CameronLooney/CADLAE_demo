@@ -127,4 +127,4 @@ class CorrelationSubgraph:
         # remove axis
         plt.axis("off")
         # show plot
-        st.pyplot(fig, )
+        st.pyplot(fig)
