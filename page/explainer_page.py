@@ -52,6 +52,7 @@ def generation_explanation():
 	index = st.sidebar.number_input("Enter index of data point to explain", min_value=0, max_value=len(X_train), value=550, step=1)
 	
 	if st.button("Explain"):
+		st.warning('Due to compatibility issues, the following charts are not dynamically sized, as a result, they may not be displayed correctly. We apologise for any inconvenience caused.')
 		with st.spinner('Explainer is learning, Please Wait...'):
 			mod = ActionExplainer()
 			mod.fit(X_test, y_test, max_depth=4)
