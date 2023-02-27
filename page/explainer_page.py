@@ -50,11 +50,13 @@ def generation_explanation():
 	# streamlit text input type int between 0 and 10
 	
 	index = st.sidebar.number_input("Enter index of data point to explain", min_value=0, max_value=len(X_train), value=550, step=1)
+	
 	if st.button("Explain"):
 		with st.spinner('Explainer is learning, Please Wait...'):
 			mod = ActionExplainer()
 			mod.fit(X_test, y_test, max_depth=4)
 			mod.learn_data()
+		
 	
 	
 		def st_dtree(plot, height=None):
