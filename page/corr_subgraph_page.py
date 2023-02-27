@@ -34,7 +34,7 @@ def generate_corr_subgraph():
 		subgraphs, where each subgraph is a group of features that are highly correlated with each other.
 		These subgraphs can then be used to localise the cause of the anomaly.
 		
-		👈 **Set the minimum correlation threshold in the sidebar  and click the button to generate the correlation subgraph.**
+		👈 **Set the minimum correlation threshold in the sidebar and click the button to generate the correlation subgraph.**
 
 
 		'''

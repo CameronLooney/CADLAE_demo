@@ -13,8 +13,27 @@ def generate_pca_localisation():
 	col_names = processor.col_names
 	model = AnomalyDetector(batch_size=256, num_epochs=10, hidden_size=25)
 	num_variables = st.sidebar.slider("Top K most likely variables", 1, 20, 5)
+	st.markdown(
+		'''
+		# PCA Localisation 📌
+
+		### What is PCA Localisation?
+		Principal Component Analysis (PCA) is a statistical technique that transforms a dataset into a new
+		coordinate system where the data is represented by a set of uncorrelated variables, known as principal
+		components. The principal components are ordered in terms of their contribution to the variance in the data.
+		
+		### How does it work?
+		PCA can be used for anomaly detection in cyber-physical systems by analyzing the reconstruction error
+		from the test predictions of our proposed. The reconstruction error can be used to identify anomalous
+		samples, and performing PCA on the reconstruction error allows us to identify the features that contributed
+		the most to the anomaly. This information can be used to diagnose the cause of the anomaly and
+		potentially take corrective action.
+
+		👈 **Set the number of components you want returned and  click the button to generate the localisation**
 
 
+		'''
+	)
 	if st.button("PCA Localisation"):
 	
 		
