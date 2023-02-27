@@ -10,6 +10,8 @@ CADLAE Interactive Demonstration: Configurable Anomaly Detection, Localisation a
 - ~~Add Thresholding localisation~~
 - ~~Add correlation subgraph~~
 - ~~Add full demo~~
+
+- fix train model tab, pretrained option shouldnt be available (overload)
 - clean up full demo 
 - look into adding data simulation
 - Add more test files 
