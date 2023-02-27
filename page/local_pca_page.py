@@ -5,7 +5,7 @@ def generate_pca_localisation():
 	import streamlit as st
 	import torch
 	train_link = "data/train_data.csv"
-	test_link = "data/test_data.csv"
+	test_link = "data/test_data_idv4.csv"
 	processor = DataProcessor(train_link, test_link, "Fault", "Unnamed: 0")
 	X_train = processor.X_train
 	y_train = processor.y_train

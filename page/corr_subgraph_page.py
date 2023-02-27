@@ -9,7 +9,7 @@ def generate_corr_subgraph():
 	import networkx as nx
 	
 	train_link = "data/train_data.csv"
-	test_link = "data/test_data.csv"
+	test_link = "data/test_data_idv4.csv"
 	processor = DataProcessor(train_link, test_link, "Fault", "Unnamed: 0")
 	X_train = processor.X_train
 	import streamlit as st
