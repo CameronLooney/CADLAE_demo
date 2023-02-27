@@ -1,9 +1,10 @@
 import pandas as pd
 from sklearn.tree import DecisionTreeClassifier
+from sklearn.ensemble import RandomForestClassifier
 import dtreeviz
 import matplotlib.pyplot as plt
+from sklearn.metrics import accuracy_score, f1_score, roc_auc_score
 from dtreeviz import decision_boundaries
-
 from sklearn.metrics import accuracy_score, f1_score, roc_auc_score
 
 

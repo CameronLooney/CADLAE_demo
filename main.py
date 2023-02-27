@@ -11,6 +11,7 @@ def intro():
         Configurable Anomaly Detection, Localization, and Explanation Framework for Cyber Physical Systems
 
         **👈 Select a demo from the dropdown on the left to explore the framework**
+        
 
         ### CADLAE Framework
         """)
@@ -176,7 +177,8 @@ def localise_threshold():
     generate_threshold_localisation()
     
 def explainer():
-    pass
+    from page.explainer_page import generation_explanation
+    generation_explanation()
 page_names_to_funcs = {
     "Introduction": intro,
     "Train Model": train_and_predict_page,
