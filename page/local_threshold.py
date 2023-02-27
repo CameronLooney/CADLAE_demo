@@ -13,6 +13,7 @@ def generate_threshold_localisation():
 	y_test = processor.y_test
 	col_names = processor.col_names
 	model = AnomalyDetector(batch_size=256, num_epochs=10, hidden_size=25)
+	num_variables = st.sidebar.slider("Top K most likely variables", 1, len(col_names), 3)
 
 	
 	
@@ -32,6 +33,10 @@ def generate_threshold_localisation():
 			rank, y_predictions = ftwise.run()
 		
 			
-		st.subheader("Top {} most likely causes of anomaly".format(10))
-		st.write(rank)
+		st.subheader("Top {} most likely causes of anomaly".format(num_variables))
+		k = 3  # replace with the number of top features you want to print
+		
+		lst_sorted = sorted(rank, key=lambda x: x[1][0], reverse=True)[:k]  # sort by number of threshold violations
+		for i, (feat, (violations, percentage)) in enumerate(lst_sorted):
+			st.write(f"{i + 1}. {feat} with {violations} threshold violations ({percentage:.2f}%)")
 	

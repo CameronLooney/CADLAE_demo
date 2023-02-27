@@ -12,7 +12,7 @@ def generate_pca_localisation():
 	y_test = processor.y_test
 	col_names = processor.col_names
 	model = AnomalyDetector(batch_size=256, num_epochs=10, hidden_size=25)
-	num_variables = st.sidebar.slider("Top K most likely variables", 1, 20, len(col_names))
+	num_variables = st.sidebar.slider("Top K most likely variables", 1, len(col_names), 5)
 	st.markdown(
 		'''
 		# PCA Localisation 📌
