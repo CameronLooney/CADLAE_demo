@@ -21,7 +21,11 @@ def generate_pca_localisation():
 		
 		
 		with st.spinner('Model is Training, Please Wait...'):
-			model = torch.load("./model/CADLAE_demo.pth")
+			try:
+				model = torch.load("./model/model_demo.pth")
+			except:
+				model = torch.load("./model/backup.pth")
+		
 			
 		with st.spinner('Making Predictions, Please Wait...'):
 			y_pred, details = model.predict(X_test, y_test)

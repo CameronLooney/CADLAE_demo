@@ -59,7 +59,11 @@ def pipeline():
 				model.fit(X_train)
 		
 		else:
-			model = torch.load("./model/CADLAE_demo.pth")
+			try:
+				model = torch.load("./model/model_demo.pth")
+			except:
+				model = torch.load("./model/backup.pth")
+			
 			
 		# Testing -> yes we want to test the model
 		with st.spinner('Testing Model...'):

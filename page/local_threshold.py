@@ -21,7 +21,12 @@ def generate_threshold_localisation():
 	
 	if st.button("Feature Wise Localisation"):
 		with st.spinner('Model is Training, Please Wait...'):
-			model = torch.load("./model/CADLAE_demo.pth")
+			try:
+				model = torch.load("./model/model_demo.pth")
+			except:
+				
+				model = torch.load("./model/backup.pth")
+		
 			
 
 		
@@ -31,7 +36,7 @@ def generate_threshold_localisation():
 			test_preds, details_test = model.predict(X_test)
 		
 		with st.spinner("Using Predictions to Localise Anomalies..."):
-			ftwise = FeatureWiseLocalisation(y_test, test_preds, processor.col_names, details_train, details_test)
+			ftwise = FeatureWiseLocalisation(y_test, test_preds, col_names, details_train, details_test)
 			rank, y_predictions = ftwise.run()
 		
 			
