@@ -1,6 +1,7 @@
 def generate_corr_subgraph():
 	from cadlae.preprocess import DataProcessor
 	from cadlae.correlationSubgraph import CorrelationSubgraph
+	from cadlae.localisationSubgraph import LocaliseSubgraph
 	import pandas as pd
 	import matplotlib.pyplot as plt
 	from sklearn.metrics import roc_curve,roc_auc_score
@@ -46,9 +47,12 @@ def generate_corr_subgraph():
 		subgraph.plot_corr_graph_st()
 		
 		st.subheader('Subgraphs Generated')
-		
 		for key, value in subgraph.generate_subgraph_dict().items():
 			st.write(str(key) + ': ' + ', '.join(value))
+			
+			
+			
+		st.subheader('Subgraph most likely to contain the cause of the anomaly {}'.format("d"))
 			
 		
 		
