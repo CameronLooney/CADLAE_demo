@@ -105,7 +105,9 @@ Streamlit. We're generating a bunch of random numbers in a loop for around
     # rerun.
     st.button("Re-run")
 
-
+def correlation_subgraph():
+    from page.corr_subgraph_page import generate_corr_subgraph
+    generate_corr_subgraph()
 def data_frame_demo():
     import streamlit as st
     import pandas as pd
@@ -168,7 +170,8 @@ page_names_to_funcs = {
     "Introduction": intro,
     "Train Model": train_and_predict_page,
     "A": plotting_demo,
-    "B": data_frame_demo
+    "B": data_frame_demo,
+    "Correlation Subgraph": correlation_subgraph,
 }
 
 demo_name = st.sidebar.selectbox("Choose a demo", page_names_to_funcs.keys())
