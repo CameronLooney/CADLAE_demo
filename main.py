@@ -173,10 +173,10 @@ def localise_pca():
 page_names_to_funcs = {
     "Introduction": intro,
     "Train Model": train_and_predict_page,
-    "A": plotting_demo,
-    "B": data_frame_demo,
     "Correlation Subgraph": correlation_subgraph,
-    "PCA": localise_pca,
+    "PCA Localisation": localise_pca,
+    
+   
 }
 
 demo_name = st.sidebar.selectbox("Choose a demo", page_names_to_funcs.keys())
