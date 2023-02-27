@@ -50,21 +50,15 @@ def prediction():
 	use_bias = st.sidebar.checkbox('Use bias', value=True)
 	
 	if st.button('Train the Model! 🚀'):
-		import pickle
 		
-		# Load the model object
-		with open('./model/mod.pkl', 'rb') as f:
-			model = pickle.load(f)
-	
-		model = torch.load('./model/CADLAE.pth',map_location="cpu")
 		
 	
-		'''
+		
 		model = AnomalyDetector(batch_size=batch_size, num_epochs=epochs, lr=learning_rate,
 								hidden_size=hidden_size, n_layers=num_layers, dropout=dropout,
 								sequence_length=sequence_length, use_bias=use_bias,
 								train_gaussian_percentage=0.25)
-		'''
+		
 		train_link = "data/train_data.csv"
 		test_link = "data/test_data.csv"
 		processor = DataProcessor(train_link, test_link, "Fault", "Unnamed: 0")
@@ -74,7 +68,7 @@ def prediction():
 		y_test = processor.y_test
 		scaler = processor.scaler_function
 		with st.spinner('Model is Training, Please Wait...'):
-			#model.fit(X_train)
+			model.fit(X_train)
 			y_pred, details = model.predict(X_test, y_test)
 		st.header('Model Training Complete! 🎉')
 		st.markdown('''
