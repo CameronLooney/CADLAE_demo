@@ -21,7 +21,7 @@ def generate_threshold_localisation():
 	
 	if st.button("Feature Wise Localisation"):
 		with st.spinner('Model is Training, Please Wait...'):
-			model = torch.load("./model/k.pth")
+			model = torch.load("./model/CADLAE_demo.pth")
 			
 
 		

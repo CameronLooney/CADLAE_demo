@@ -59,7 +59,7 @@ def pipeline():
 				model.fit(X_train)
 		
 		else:
-			model = torch.load("./model/k.pth")
+			model = torch.load("./model/CADLAE_demo.pth")
 			
 		# Testing -> yes we want to test the model
 		with st.spinner('Testing Model...'):
