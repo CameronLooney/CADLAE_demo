@@ -15,7 +15,7 @@ def prediction():
 	
 	# function for user parameters
 	pretrained, batch_size, epochs, learning_rate, hidden_size, num_layers, sequence_length, dropout, use_bias = training_parameters()
-	
+
 	
 	
 	if st.button('Train the Model! 🚀'):
