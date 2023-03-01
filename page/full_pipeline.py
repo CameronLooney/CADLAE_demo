@@ -7,6 +7,10 @@ def pipeline():
 	from cadlae.localisationFeatureWise import FeatureWiseLocalisation
 	from cadlae.explainer import ActionExplainer
 	import torch
+	import pandas as pd
+	import matplotlib.pyplot as plt
+	from sklearn.metrics import roc_curve,roc_auc_score, confusion_matrix, classification_report
+	from helper.st_utils import plot_roc_curve, metric_table, make_confusion_matrix
 	import streamlit.components.v1 as components
 	st.markdown(
 		'''
@@ -68,7 +72,28 @@ def pipeline():
 		# Testing -> yes we want to test the model
 		with st.spinner('Testing Model...'):
 			y_pred, details = model.predict(X_test)
-			
+		
+		st.header('Results')
+		with st.spinner("Predicting on test data..."):
+			y_pred, details = model.predict(X_test, y_test)
+		st.subheader('Metrics 📊')
+		accuracy, precision, recall, f1, roc = metric_table(y_test, y_pred)
+		# add metrics to dataframe, with columns Metric and Value
+		metrics = pd.DataFrame({'Metric': ['Accuracy', 'Precision', 'Recall', 'F1 Score', 'ROC AUC Score'],
+								'Result': [accuracy, precision, recall, f1, roc]})
+		st.table(metrics)
+		
+		st.subheader('Classification Report 📝')
+		report = classification_report(y_test, y_pred, output_dict=True)
+		report = pd.DataFrame(report).transpose()
+		st.table(report)
+		
+		st.subheader('Confusion Matrix')
+		make_confusion_matrix(y_test, y_pred, c_map="Blues")
+		
+		st.subheader('ROC-AUC Curve')
+		fpr, tpr, thresholds = roc_curve(y_test, y_pred)
+		plot_roc_curve(fpr, tpr)
 		# Localisation
 		st.header('Localisation')
 		if corr_graph:

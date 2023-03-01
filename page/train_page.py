@@ -43,6 +43,7 @@ def prediction():
         ''')
 		st.header('Model Performance 📈')
 		st.subheader('Model Metrics 📊')
+		
 		accuracy, precision, recall, f1, roc = metric_table(y_test, y_pred)
 		# add metrics to dataframe, with columns Metric and Value
 		metrics = pd.DataFrame({'Metric': ['Accuracy', 'Precision', 'Recall', 'F1 Score', 'ROC AUC Score'],
